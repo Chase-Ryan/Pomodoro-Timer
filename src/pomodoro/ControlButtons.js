@@ -26,8 +26,6 @@ export default function ControlButtons({ playPause, isTimerRunning, handleStop})
               })}
             />
           </button>
-          {/* TODO: Implement stopping the current focus or break session. and disable the stop button when there is no active session */}
-          {/* TODO: Disable the stop button when there is no active session */}
           <button
             type="button"
             className="btn btn-secondary"
