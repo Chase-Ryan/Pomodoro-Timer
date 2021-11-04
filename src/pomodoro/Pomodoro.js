@@ -4,15 +4,9 @@ import Session from "./Session";
 import ControlButtons from "./ControlButtons";
 import DurationControl from "./DurationControl";
 
-// These functions are defined outside of the component to insure they do not have access to state
-// and are, therefore more likely to be pure.
-
 /**
- * Update the session state with new state after each tick of the interval.
  * @param prevState
- *  the previous session state
  * @returns
- *  new session state with timing information updated.
  */
 function nextTick(prevState) {
   const timeRemaining = Math.max(0, prevState.timeRemaining - 1);
@@ -23,18 +17,12 @@ function nextTick(prevState) {
 }
 
 /**
- * Higher order function that returns a function to update the session state with the next session type upon timeout.
  * @param focusDuration
- *    the current focus duration
  * @param breakDuration
- *    the current break duration
  * @returns
- *  function to update the session state.
  */
 function nextSession(focusDuration, breakDuration) {
-  /**
-   * State function to transition the current session type to the next session. e.g. On Break -> Focusing or Focusing -> On Break
-   */
+  
   return (currentSession) => {
     if (currentSession.label === "Focusing") {
       return {
@@ -59,11 +47,6 @@ function Pomodoro() {
   const [focusDuration, setFocusDuration] = useState(25);
   const [breakDuration, setBreakDuration] = useState(5);
 
-  /**
-   * Custom hook that invokes the callback function every second
-   *
-   * NOTE: You will not need to make changes to the callback function
-   */
   useInterval(
     () => {
       if (session.timeRemaining === 0) {
@@ -74,10 +57,7 @@ function Pomodoro() {
     },
     isTimerRunning ? 1000 : null
   );
-
-  /**
-   * Called whenever the play/pause button is clicked.
-   */
+  
   function playPause() {
     setIsTimerRunning((prevState) => {
       const nextState = !prevState;
